@@ -4,6 +4,7 @@
 #include <utility>
 #include <vector>
 #include <string>
+
 namespace numbers
 {
 	float seed = 1.f;
@@ -41,7 +42,7 @@ namespace numbers
 		file.close();
 	}
 
-	void load_numbers(std::vector<uint32_t>& number_vector, const std::string& filename)
+	void load_numbers(std::vector<float>& number_vector, const std::string& filename)
 	{
 		std::ifstream file;
 		std::size_t vector_size;
