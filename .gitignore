@@ -7,3 +7,5 @@
 */
 
 *.program
+*.o
+*.nr

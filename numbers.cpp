@@ -65,31 +65,31 @@ namespace numbers
 		return name;
 	}
 
-}
-int main(int argc, char** argv)
-{
-	if(argc != 2)
+	int test_main(int argc, char** argv)
 	{
-		std::cout << "You need to specify how many numbers you want to generate." << std::endl;
-		std::cout << "Try again." << std::endl << std::endl;
-		return -1;
+		if(argc != 2)
+		{
+			std::cout << "You need to specify how many numbers you want to generate." << std::endl;
+			std::cout << "Try again." << std::endl << std::endl;
+			return -1;
+		}
+
+		std::size_t how_many = std::atoi(argv[1]);
+
+		std::string dir_name = "data-sets/";
+		system(("rm -rf " + dir_name).c_str());
+		system(("mkdir " + dir_name).c_str());
+
+
+		std::vector<float> mynumbers = numbers::generate_floats(how_many);
+		numbers::save_numbers(mynumbers, dir_name + numbers::get_filename(how_many));
+
+		for(auto i : mynumbers)
+			std::cout << i << " ";
+		std::cout << std::endl;
+
+
+
+		return 0;
 	}
-
-	std::size_t how_many = std::atoi(argv[1]);
-
-	std::string dir_name = "data-sets/";
-	system(("rm -rf " + dir_name).c_str());
-	system(("mkdir " + dir_name).c_str());
-
-
-	std::vector<float> mynumbers = numbers::generate_floats(how_many);
-	numbers::save_numbers(mynumbers, dir_name + numbers::get_filename(how_many));
-
-	for(auto i : mynumbers)
-		std::cout << i << " ";
-	std::cout << std::endl;
-
-
-
-	return 0;
 }

@@ -1,10 +1,14 @@
 CC = g++
 CFLAGS = -std=c++11 
 
-all: numbers
+all: testbed
 
-execution-time:
-	$(CC) $(CFLAGS) execution-time.cpp -o time-sample.program
+testbed: numbers builddir
+	$(CC) $(CFLAGS) testbed.cpp numbers.o -o build/tests
 
 numbers:
-	$(CC) $(CFLAGS) numbers.cpp -o gen-numbers.program
+	$(CC) $(CFLAGS) numbers.cpp -c
+builddir:
+	mkdir -p build
+clean:
+	rm -rf *.o ./build
