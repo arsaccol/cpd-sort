@@ -65,6 +65,23 @@ namespace numbers
 		return name;
 	}
 
+	bool is_sorted(const std::vector<float>& number_vector)
+	{
+
+
+	}
+
+	void print_numbers(const std::vector<float>& number_vector)
+	{
+		std::cout << "Printing vector of size " << number_vector.size() << std::endl;
+		for(auto i : number_vector)
+		{
+			std::cout << i << std::endl;
+		}
+
+		std::cout << std::endl;
+	}
+
 	int test_main(int argc, char** argv)
 	{
 		if(argc != 2)
