@@ -67,8 +67,14 @@ namespace numbers
 
 	bool is_sorted(const std::vector<float>& number_vector)
 	{
+		for(std::size_t i = 1; i < number_vector.size(); ++i)
+		{
+			if(number_vector[i] < number_vector[i - 1])
+				return false;
 
+		}
 
+		return true;
 	}
 
 	void print_numbers(const std::vector<float>& number_vector)
