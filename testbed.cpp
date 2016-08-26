@@ -1,5 +1,6 @@
-#include "numbers.h"
 #include <iostream>
+#include "numbers.h"
+#include "insertion_sort.h"
 
 namespace tests
 {
@@ -22,16 +23,14 @@ namespace tests
 int main(int argc, char** argv)
 {
 
-	std::size_t how_many = 100;
+	std::size_t how_many = 25;
 	std::string filename = numbers::get_filename(how_many);
 
 	std::cout << "Attempting to create sorted vector..." << std::endl;
-
-	std::vector<float> vec;
-		for(std::size_t i = 0; i < 100; ++i)
-			vec.push_back(static_cast<float>(i));
-
+	std::vector<float> vec = numbers::generate_floats(how_many);
 	std::cout << "Finished creating vector."<< std::endl;
+
+	sort::insertion_sort(vec);
 
 	numbers::print_numbers(vec);
 	if(numbers::is_sorted(vec))
