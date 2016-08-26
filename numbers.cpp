@@ -82,7 +82,7 @@ namespace numbers
 		std::cout << "Printing vector of size " << number_vector.size() << std::endl;
 		for(auto i : number_vector)
 		{
-			std::cout << i << std::endl;
+			std::cout << i << " ";
 		}
 
 		std::cout << std::endl;
