@@ -20,6 +20,7 @@ namespace tests
 		std::size_t how_many = std::atoi(argv[1]);
 	}
 
+	// Returns the runtime of a sorting algorithm given a float vector and the algorithm function
 	// Arguments: vector to be sorted, and void sort function with float vector as parameter
 	double test_algorithm_time(std::vector<float> numbers, std::function<void(std::vector<float>&)> sort_fn)
 	{
@@ -38,8 +39,8 @@ int main(int argc, char** argv)
 	std::size_t how_many = 50000;
 	std::string filename = numbers::get_filename(how_many);
 
+
 	std::vector<float> vec = numbers::generate_floats(how_many);
-	std::cout << "Finished creating vector."<< std::endl;
 
 	double elapsed = tests::test_algorithm_time(vec, sort::insertion_sort);
 
