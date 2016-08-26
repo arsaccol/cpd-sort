@@ -1,6 +1,7 @@
 #include <iostream>
 #include "numbers.h"
 #include "insertion_sort.h"
+#include "timer.h"
 
 namespace tests
 {
@@ -23,16 +24,19 @@ namespace tests
 int main(int argc, char** argv)
 {
 
-	std::size_t how_many = 25;
+	std::size_t how_many = 10000;
 	std::string filename = numbers::get_filename(how_many);
 
-	std::cout << "Attempting to create sorted vector..." << std::endl;
 	std::vector<float> vec = numbers::generate_floats(how_many);
 	std::cout << "Finished creating vector."<< std::endl;
 
+	Timer t; t.Start();
 	sort::insertion_sort(vec);
+	double elapsed = t.GetMillisecondsElapsed();
 
-	numbers::print_numbers(vec);
+	std::cout << "Sorting took " << elapsed << " milliseconds" << std::endl;
+
+	//numbers::print_numbers(vec);
 	if(numbers::is_sorted(vec))
 		std::cout << "Number sequence is sorted" << std::endl;
 	//numbers::save_numbers(vec, filename);
