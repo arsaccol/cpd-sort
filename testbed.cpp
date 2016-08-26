@@ -1,4 +1,5 @@
 #include <iostream>
+#include <functional>
 #include "numbers.h"
 #include "insertion_sort.h"
 #include "timer.h"
@@ -19,20 +20,28 @@ namespace tests
 		std::size_t how_many = std::atoi(argv[1]);
 	}
 
+	// Arguments: vector to be sorted, and void sort function with float vector as parameter
+	double test_algorithm_time(std::vector<float> numbers, std::function<void(std::vector<float>&)> sort_fn)
+	{
+		Timer t; t.Start();
+
+		sort_fn(numbers);
+
+		return t.GetMillisecondsElapsed();
+	}
+
 }
 
 int main(int argc, char** argv)
 {
 
-	std::size_t how_many = 10000;
+	std::size_t how_many = 50000;
 	std::string filename = numbers::get_filename(how_many);
 
 	std::vector<float> vec = numbers::generate_floats(how_many);
 	std::cout << "Finished creating vector."<< std::endl;
 
-	Timer t; t.Start();
-	sort::insertion_sort(vec);
-	double elapsed = t.GetMillisecondsElapsed();
+	double elapsed = tests::test_algorithm_time(vec, sort::insertion_sort);
 
 	std::cout << "Sorting took " << elapsed << " milliseconds" << std::endl;
 
