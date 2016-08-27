@@ -1,24 +1,41 @@
 #include "insertion_sort.h"
+#include <iostream>
 
 namespace sort
 {
-	void insertion_sort(std::vector<float>& numbers)
+	void insertion_sort(std::vector<float>& number_vector)
 	{
 		float current_key;
 
-		for(std::size_t sorted_end = 1; sorted_end < numbers.size(); ++sorted_end)
+		for(std::size_t unsorted_begin = 1; unsorted_begin < number_vector.size(); ++unsorted_begin)
 		{
-			current_key = numbers[sorted_end];
-			std::size_t insertion_pos = sorted_end - 1;
+			current_key = number_vector[unsorted_begin];
+
+			// Index of where insertion position will be placed
+			std::size_t insertion_pos = unsorted_begin - 1;
 
 			// Look for best position for insertion
-			while(insertion_pos > 0 && numbers[insertion_pos] > current_key)
+			while(insertion_pos >= 0 && number_vector[insertion_pos] > current_key)
 			{
-				numbers[insertion_pos+1] = numbers[insertion_pos];
+				// and shift every element greater than current_key to the right
+				number_vector[insertion_pos+1] = number_vector[insertion_pos];
 				--insertion_pos;
 			}
 
-			numbers[insertion_pos + 1] = current_key;
+			number_vector[insertion_pos + 1] = current_key;
 		}
+	}
+
+	void insertion_sort_binary_search(std::vector<float>& number_vector)
+	{
+
+
+		float current_key;
+
+		for(std::size_t unsorted_begin = 1; unsorted_begin < number_vector.size(); ++unsorted_begin)
+		{
+
+		}
+
 	}
 }

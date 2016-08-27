@@ -22,11 +22,11 @@ namespace tests
 
 	// Returns the runtime of a sorting algorithm given a float vector and the algorithm function
 	// Arguments: vector to be sorted, and void sort function with float vector as parameter
-	double test_algorithm_time(std::vector<float> numbers, std::function<void(std::vector<float>&)> sort_fn)
+	double test_algorithm_time(std::vector<float>& number_vector, std::function<void(std::vector<float>&)> sort_fn)
 	{
 		Timer t; t.Start();
 
-		sort_fn(numbers);
+		sort_fn(number_vector);
 
 		return t.GetMillisecondsElapsed();
 	}
@@ -36,19 +36,18 @@ namespace tests
 int main(int argc, char** argv)
 {
 
-	std::size_t how_many = 50000;
+	std::size_t how_many = 10;
 	std::string filename = numbers::get_filename(how_many);
-
 
 	std::vector<float> vec = numbers::generate_floats(how_many);
 
 	double elapsed = tests::test_algorithm_time(vec, sort::insertion_sort);
 
+	numbers::print_numbers(vec);
 	std::cout << "Sorting took " << elapsed << " milliseconds" << std::endl;
 
-	//numbers::print_numbers(vec);
 	if(numbers::is_sorted(vec))
-		std::cout << "Number sequence is sorted" << std::endl;
+	std::cout << "Number sequence is sorted" << std::endl;
 	//numbers::save_numbers(vec, filename);
 	return 0;
 }
