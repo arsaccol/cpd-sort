@@ -37,9 +37,11 @@ int main(int argc, char** argv)
 {
 
 	std::size_t how_many = 10;
-	std::string filename = numbers::get_filename(how_many);
+	float seed = 1.f;
 
-	std::vector<float> vec = numbers::generate_floats(how_many);
+	//std::string filename = numbers::get_filename(how_many);
+
+	std::vector<float> vec = numbers::generate_floats(how_many, seed);
 
 	double elapsed = tests::test_algorithm_time(vec, sort::insertion_sort);
 

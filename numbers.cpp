@@ -5,14 +5,14 @@
 #include <vector>
 #include <string>
 
+#include "numbers.h"
+
 namespace numbers
 {
-	float seed = 1.f;
-
-	std::vector<float> generate_floats(std::size_t how_many)
-    {
+	std::vector<float> generate_floats(std::size_t how_many, float seed)
+	{
         std::mt19937 number_gen;
-        number_gen.seed(seed);
+		number_gen.seed(seed);
 		std::uniform_real_distribution<float> distribution(0, how_many);
 
 		std::vector<float> numbers;
@@ -104,7 +104,7 @@ namespace numbers
 		system(("mkdir " + dir_name).c_str());
 
 
-		std::vector<float> mynumbers = numbers::generate_floats(how_many);
+		std::vector<float> mynumbers = numbers::generate_floats(how_many, 1.f);
 		numbers::save_numbers(mynumbers, dir_name + numbers::get_filename(how_many));
 
 		for(auto i : mynumbers)
