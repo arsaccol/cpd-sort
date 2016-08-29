@@ -52,7 +52,7 @@ namespace sort
 		{
 			current_key = number_vector[unsorted_begin];
 			std::size_t insertion_pos = bin_search(0, unsorted_begin -1);
-			std::cout << "Insert " << current_key << " in position " << insertion_pos << std::endl;
+			std::cout << "Current insertion position of " << current_key << " is: " << insertion_pos << std::endl;
 
 			auto shift_the_greater_ones = [&number_vector, &insertion_pos, &unsorted_begin] () -> void
 			{

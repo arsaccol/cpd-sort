@@ -62,6 +62,8 @@ int main(int argc, char** argv)
 	//std::string filename = numbers::get_filename(how_many);
 
 	std::vector<float> vec = numbers::generate_floats(how_many, seed);
+	numbers::print_numbers(vec);
+
 
 	double elapsed = tests::test_algorithm_time(vec, sort::insertion_sort_binary_search);
 
