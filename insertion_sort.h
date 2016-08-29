@@ -5,7 +5,8 @@
 
 namespace sort
 {
-	void insertion_sort(std::vector<float>& numbers);
+	void insertion_sort(std::vector<float>& number_vector);
+	void insertion_sort_binary_search(std::vector<float>& number_vector);
 
 }
 

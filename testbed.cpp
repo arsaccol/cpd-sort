@@ -1,8 +1,10 @@
 #include <iostream>
 #include <functional>
+#include <cmath>
 #include "numbers.h"
 #include "insertion_sort.h"
 #include "timer.h"
+
 
 namespace tests
 {
@@ -33,9 +35,27 @@ namespace tests
 
 }
 
+// Binary search as seen in CLRS, 3d ed., p. 799
+// Returns position of lookup number; if number is not found, returns "where it should be"
+std::size_t binary_search(std::vector<float>& vec, std::size_t begin, std::size_t end, float lookup)
+{
+	std::size_t low = begin;
+	std::size_t high = std::max(begin, end + 1);
+
+	while(low < high)
+	{
+		std::size_t mid = std::floor((low + high) / 2);
+		if(lookup <= vec[mid])
+			high = mid;
+		else
+			low = mid + 1;
+	}
+
+	return high;
+}
+
 int main(int argc, char** argv)
 {
-
 	std::size_t how_many = 10;
 	float seed = 1.f;
 
@@ -43,13 +63,20 @@ int main(int argc, char** argv)
 
 	std::vector<float> vec = numbers::generate_floats(how_many, seed);
 
-	double elapsed = tests::test_algorithm_time(vec, sort::insertion_sort);
+	double elapsed = tests::test_algorithm_time(vec, sort::insertion_sort_binary_search);
 
 	numbers::print_numbers(vec);
-	std::cout << "Sorting took " << elapsed << " milliseconds" << std::endl;
+	//std::cout << "Sorting took " << elapsed << " milliseconds" << std::endl;
 
 	if(numbers::is_sorted(vec))
-	std::cout << "Number sequence is sorted" << std::endl;
+	{
+		std::cout << "Number sequence is sorted" << std::endl;
+		float lookup = -123.f;
+		auto pos = binary_search(vec, 0, vec.size()-1, lookup);
+		std::cout << "Number " << lookup << " should be at position " << pos << std::endl;
+
+
+	}
 	//numbers::save_numbers(vec, filename);
 	return 0;
 }
