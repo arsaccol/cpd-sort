@@ -3,6 +3,9 @@ CFLAGS = -std=c++11
 
 all: testbed
 
+debug:
+	$(CC) $(CFLAGS) -g testbed.cpp numbers.o insertion_sort.o timer.o -o tests.program
+
 testbed: numbers insertion_sort timer
 	$(CC) $(CFLAGS) testbed.cpp numbers.o insertion_sort.o timer.o -o tests.program
 
