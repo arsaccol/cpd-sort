@@ -2,6 +2,7 @@
 #include <functional>
 #include <cmath>
 #include <map>
+#include <fstream>
 #include "numbers.h"
 #include "insertion_sort.h"
 #include "timer.h"
@@ -34,7 +35,7 @@ namespace tests
 		return t.GetMillisecondsElapsed();
 	}
 
-	void sorting_test_single_length(std::size_t how_many, float generation_seed = 0.f)
+	void sorting_test_single_length(std::vector<std::map<std::size_t, double>>& maps, std::size_t how_many, float generation_seed = 0.f)
 	{
 		std::vector<float> vec = numbers::generate_floats(how_many, generation_seed);
 		std::vector<float> vec_binary = numbers::generate_floats(how_many, generation_seed);
@@ -47,6 +48,7 @@ namespace tests
 			std::cout << "Regular insertion sort successful!" << std::endl;
 			std::cout << "Sorting took with regular insertion sort took " << elapsed << " milliseconds" << std::endl;
 		}
+		maps[0][how_many] = elapsed;
 
 
 		// Binary search insertion sort
@@ -57,25 +59,51 @@ namespace tests
 			std::cout << "Binary search insertion sort successful!" << std::endl;
 			std::cout << "Sorting took with binary search insertion sort took " << elapsed_binary << " milliseconds" << std::endl;
 		}
+		maps[1][how_many] = elapsed_binary;
 
 
 
+	}
+
+	void save_map(std::map<std::size_t, double>& the_map, std::string filename)
+	{
+		std::ofstream file;
+		file.open(filename);
+
+		for(auto &a : the_map)
+		{
+			file << a.first << " , " << a.second << std::endl;
+		}
+
+		file.close();
 	}
 
 }
 
 int main(int argc, char** argv)
 {
-	std::size_t how_many = 10000;
+	std::size_t how_many_tests = 100;
+	std::size_t nr_algos = 2;
+	std::string extension = ".csv";
 
+
+	/// Regular insertion sort: 			tables[0]
+	/// Binary search insertion sort: 		tables[1]
+	std::vector<std::map<std::size_t, double>> tables(2);
 	//std::string filename = numbers::get_filename(how_many);
-	//std::vector<float> vec= {1.f, 2.f, 4.f, 8.f, 16.f, 32.f, 64.f, 128.f};
-	//std::vector<float> vec = {128.f, 64.f, 32.f, 16.f, 8.f, 4.f, 2.f, 1.f};
 
-	tests::sorting_test_single_length(how_many);
+	//tests::sorting_test_single_length(how_many);
 
 
 
+	for(std::size_t i = 0; i < how_many_tests; ++i)
+	{
+		tests::sorting_test_single_length(tables, i);
+	}
+
+
+	tests::save_map(tables[0], "insertion_sort" + extension);
+	tests::save_map(tables[1], "binary_search_insertion_sort" + extension);
 
 	//numbers::save_numbers(vec, filename);
 	return 0;
