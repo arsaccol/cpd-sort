@@ -33,55 +33,49 @@ namespace tests
 		return t.GetMillisecondsElapsed();
 	}
 
-}
-
-// Binary search as seen in CLRS, 3rd ed., p. 799
-// Returns position of lookup number; if number is not found, returns "where it should be"
-std::size_t binary_search(std::vector<float>& vec, std::size_t begin, std::size_t end, float lookup)
-{
-	std::size_t low = begin;
-	std::size_t high = std::max(begin, end + 1);
-
-	while(low < high)
+	void run_single_length_tests(std::size_t how_many, float generation_seed = 0.f)
 	{
-		std::size_t mid = std::floor((low + high) / 2);
-		if(lookup <= vec[mid])
-			high = mid;
-		else
-			low = mid + 1;
+		std::vector<float> vec = numbers::generate_floats(how_many, generation_seed);
+		std::vector<float> vec_binary = numbers::generate_floats(how_many, generation_seed);
+
+		// Regular insertion sort
+		std::cout << "Sorting an std::vector of " << how_many << " elements with regular insertion sort..." << std::endl;
+		double elapsed = tests::test_algorithm_time(vec, sort::insertion_sort);
+		if(numbers::is_sorted(vec))
+		{
+			std::cout << "Regular insertion sort successful!" << std::endl;
+			std::cout << "Sorting took with regular insertion sort took " << elapsed << " milliseconds" << std::endl;
+		}
+
+
+		// Binary search insertion sort
+		std::cout << "Sorting an std::vector of " << how_many << " elements with binary search insertion sort..." << std::endl;
+		double elapsed_binary = tests::test_algorithm_time(vec_binary, sort::insertion_sort_binary_search);
+		if(numbers::is_sorted(vec_binary))
+		{
+			std::cout << "Binary search insertion sort successful!" << std::endl;
+			std::cout << "Sorting took with binary search insertion sort took " << elapsed_binary << " milliseconds" << std::endl;
+		}
+
+
+
 	}
 
-	return high;
 }
 
 int main(int argc, char** argv)
 {
-	std::size_t how_many = 10;
-	float seed = 1.f;
+	std::size_t how_many = 10000;
 
 	//std::string filename = numbers::get_filename(how_many);
-
-	// std::vector<float> vec = numbers::generate_floats(how_many, seed);
-	std::vector<float> vec= {1.f, 2.f, 4.f, 8.f, 16.f, 32.f, 64.f, 128.f};
-	numbers::print_numbers(vec);
+	//std::vector<float> vec= {1.f, 2.f, 4.f, 8.f, 16.f, 32.f, 64.f, 128.f};
+	//std::vector<float> vec = {128.f, 64.f, 32.f, 16.f, 8.f, 4.f, 2.f, 1.f};
 
 
-	double elapsed = tests::test_algorithm_time(vec, sort::insertion_sort_binary_search);
-
-	numbers::print_numbers(vec);
-	//std::cout << "Sorting took " << elapsed << " milliseconds" << std::endl;
-
-	if(numbers::is_sorted(vec))
-	{
-		std::cout << "Number sequence is sorted" << std::endl;
-
-		float lookup = static_cast<float>(5);
-		std::cout << "Looking for number " << lookup << std::endl;
-		auto pos = numbers::binary_search(vec, 0, vec.size()-1, 129);
-		std::cout << "Number " << lookup << " should be at position " << pos << std::endl;
+	tests::run_single_length_tests(how_many);
 
 
-	}
+
 	//numbers::save_numbers(vec, filename);
 	return 0;
 }

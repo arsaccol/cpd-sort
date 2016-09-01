@@ -33,9 +33,15 @@ namespace numbers
 		std::size_t low = begin;
 		std::size_t high = std::max(begin, end + 1);
 
+		//std::cout << "Starting binary search of lookup " << lookup << std::endl;
+
 		while(low < high)
 		{
 			std::size_t mid = std::floor((low + high) / 2);
+
+
+			//std::cout << "Low: " << low << " Mid: " << mid << " High: " << high << std::endl;
+
 			if(lookup <= vec[mid])
 				high = mid;
 			else

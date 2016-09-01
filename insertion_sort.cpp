@@ -36,14 +36,14 @@ namespace sort
 			current_key = number_vector[unsorted_begin];
 
 			// Do a binary search for the position to insert the current key in
-			auto insert_pos = numbers::binary_search(number_vector, 0, number_vector[unsorted_begin-1], current_key);
-
-			// This may or may not work...
-
-			std::cout << "Positon to insert " << current_key << " is " << insert_pos << std::endl;
-
-
-
+			auto insert_pos = numbers::binary_search(number_vector, 0, unsorted_begin - 1, current_key);
+			// Element-by-element shift to the right, to make room
+			for(std::size_t current_shift = unsorted_begin; current_shift > insert_pos; --current_shift)
+			{
+				number_vector[current_shift] = number_vector[current_shift - 1];
+			}
+			// "Current" element is finally inserted
+			number_vector[insert_pos] = current_key;
 		}
 
 	}
