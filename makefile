@@ -20,7 +20,7 @@ timer:
 	$(CC) $(CFLAGS) timer.cpp -c
 
 clean:
-	rm -rf *.o *.program
+	rm -rf *.o *.program *.csv
 
 delete_numbers:
 	rm *.nr

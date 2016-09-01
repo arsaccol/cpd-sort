@@ -13,7 +13,7 @@ namespace numbers
 	{
         std::mt19937 number_gen;
 		number_gen.seed(seed);
-		std::uniform_real_distribution<float> distribution(0, how_many);
+		std::uniform_real_distribution<float> distribution(50, 100000);
 
 		std::vector<float> numbers;
 

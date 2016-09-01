@@ -61,7 +61,6 @@ namespace tests
 		}
 		maps[1][how_many] = elapsed_binary;
 
-		// TODO: Fix quicksort on line 68
 		// Quicksort
 		std::vector<float> vec_quicksort = numbers::generate_floats(how_many, generation_seed);
 		std::cout << "Sorting an std::vector of " << how_many << " elements with quicksort..." << std::endl;
@@ -98,22 +97,22 @@ namespace tests
 
 int main(int argc, char** argv)
 {
-	std::size_t how_many_tests = 100000;
-	std::size_t nr_algos = 2;
+	std::size_t how_many_tests = 10000;
+	std::size_t nr_algos = 3;
 	std::string extension = ".csv";
 
 
 	/// Regular insertion sort: 			tables[0]
 	/// Binary search insertion sort: 		tables[1]
 	/// Quicksort:							tables[2]
-	std::vector<std::map<std::size_t, double>> tables(3);
+	std::vector<std::map<std::size_t, double>> tables(nr_algos);
 	//std::string filename = numbers::get_filename(how_many);
 
 	//tests::sorting_test_single_length(how_many);
 
 
 
-	for(std::size_t i = 50; i <= how_many_tests; ++i)
+	for(std::size_t i = 50; i <= how_many_tests; i += 10) 
 	{
 		tests::sorting_test_single_length(tables, i);
 	}
@@ -121,6 +120,7 @@ int main(int argc, char** argv)
 
 	tests::save_map(tables[0], "insertion_sort" + extension);
 	tests::save_map(tables[1], "binary_search_insertion_sort" + extension);
+	tests::save_map(tables[2], "quicksort" + extension);
 
 	//numbers::save_numbers(vec, filename);
 	return 0;
