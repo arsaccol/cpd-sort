@@ -3,6 +3,7 @@
 #include <cmath>
 #include <map>
 #include <fstream>
+#include <algorithm>
 #include "numbers.h"
 #include "insertion_sort.h"
 #include "timer.h"
@@ -37,29 +38,44 @@ namespace tests
 
 	void sorting_test_single_length(std::vector<std::map<std::size_t, double>>& maps, std::size_t how_many, float generation_seed = 0.f)
 	{
-		std::vector<float> vec = numbers::generate_floats(how_many, generation_seed);
-		std::vector<float> vec_binary = numbers::generate_floats(how_many, generation_seed);
-
 		// Regular insertion sort
+		std::vector<float> vec = numbers::generate_floats(how_many, generation_seed);
 		std::cout << "Sorting an std::vector of " << how_many << " elements with regular insertion sort..." << std::endl;
 		double elapsed = tests::test_algorithm_time(vec, sort::insertion_sort);
 		if(numbers::is_sorted(vec))
 		{
 			std::cout << "Regular insertion sort successful!" << std::endl;
-			std::cout << "Sorting took with regular insertion sort took " << elapsed << " milliseconds" << std::endl;
+			std::cout << "Sorting with regular insertion sort took " << elapsed << " milliseconds" << std::endl;
 		}
 		maps[0][how_many] = elapsed;
 
 
 		// Binary search insertion sort
+		std::vector<float> vec_binary = numbers::generate_floats(how_many, generation_seed);
 		std::cout << "Sorting an std::vector of " << how_many << " elements with binary search insertion sort..." << std::endl;
 		double elapsed_binary = tests::test_algorithm_time(vec_binary, sort::insertion_sort_binary_search);
 		if(numbers::is_sorted(vec_binary))
 		{
 			std::cout << "Binary search insertion sort successful!" << std::endl;
-			std::cout << "Sorting took with binary search insertion sort took " << elapsed_binary << " milliseconds" << std::endl;
+			std::cout << "Sorting with binary search insertion sort took " << elapsed_binary << " milliseconds" << std::endl;
 		}
 		maps[1][how_many] = elapsed_binary;
+
+		// TODO: Fix quicksort on line 68
+		// Quicksort
+		std::vector<float> vec_quicksort = numbers::generate_floats(how_many, generation_seed);
+		std::cout << "Sorting an std::vector of " << how_many << " elements with quicksort..." << std::endl;
+		Timer quick_timer; quick_timer.Start();
+		std::sort(std::begin(vec_quicksort), std::end(vec_quicksort), std::less_equal<float>());
+		double elapsed_quicksort = quick_timer.GetMillisecondsElapsed();
+		if(numbers::is_sorted(vec_quicksort))
+		{
+			std::cout << "Quicksort successful!" << std::endl;
+			std::cout << "Sorting with quicksort took " << elapsed_quicksort << " milliseconds" << std::endl;
+		}
+		maps[2][how_many] = elapsed_quicksort;
+
+
 
 
 
@@ -82,21 +98,22 @@ namespace tests
 
 int main(int argc, char** argv)
 {
-	std::size_t how_many_tests = 100;
+	std::size_t how_many_tests = 100000;
 	std::size_t nr_algos = 2;
 	std::string extension = ".csv";
 
 
 	/// Regular insertion sort: 			tables[0]
 	/// Binary search insertion sort: 		tables[1]
-	std::vector<std::map<std::size_t, double>> tables(2);
+	/// Quicksort:							tables[2]
+	std::vector<std::map<std::size_t, double>> tables(3);
 	//std::string filename = numbers::get_filename(how_many);
 
 	//tests::sorting_test_single_length(how_many);
 
 
 
-	for(std::size_t i = 0; i < how_many_tests; ++i)
+	for(std::size_t i = 50; i <= how_many_tests; ++i)
 	{
 		tests::sorting_test_single_length(tables, i);
 	}
