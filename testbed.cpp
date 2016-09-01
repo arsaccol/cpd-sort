@@ -1,6 +1,7 @@
 #include <iostream>
 #include <functional>
 #include <cmath>
+#include <map>
 #include "numbers.h"
 #include "insertion_sort.h"
 #include "timer.h"
@@ -33,7 +34,7 @@ namespace tests
 		return t.GetMillisecondsElapsed();
 	}
 
-	void run_single_length_tests(std::size_t how_many, float generation_seed = 0.f)
+	void sorting_test_single_length(std::size_t how_many, float generation_seed = 0.f)
 	{
 		std::vector<float> vec = numbers::generate_floats(how_many, generation_seed);
 		std::vector<float> vec_binary = numbers::generate_floats(how_many, generation_seed);
@@ -71,8 +72,8 @@ int main(int argc, char** argv)
 	//std::vector<float> vec= {1.f, 2.f, 4.f, 8.f, 16.f, 32.f, 64.f, 128.f};
 	//std::vector<float> vec = {128.f, 64.f, 32.f, 16.f, 8.f, 4.f, 2.f, 1.f};
 
+	tests::sorting_test_single_length(how_many);
 
-	tests::run_single_length_tests(how_many);
 
 
 
