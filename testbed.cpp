@@ -35,7 +35,7 @@ namespace tests
 
 }
 
-// Binary search as seen in CLRS, 3d ed., p. 799
+// Binary search as seen in CLRS, 3rd ed., p. 799
 // Returns position of lookup number; if number is not found, returns "where it should be"
 std::size_t binary_search(std::vector<float>& vec, std::size_t begin, std::size_t end, float lookup)
 {
@@ -61,7 +61,8 @@ int main(int argc, char** argv)
 
 	//std::string filename = numbers::get_filename(how_many);
 
-	std::vector<float> vec = numbers::generate_floats(how_many, seed);
+	// std::vector<float> vec = numbers::generate_floats(how_many, seed);
+	std::vector<float> vec= {1.f, 2.f, 4.f, 8.f, 16.f, 32.f, 64.f, 128.f};
 	numbers::print_numbers(vec);
 
 
@@ -73,8 +74,10 @@ int main(int argc, char** argv)
 	if(numbers::is_sorted(vec))
 	{
 		std::cout << "Number sequence is sorted" << std::endl;
-		float lookup = -123.f;
-		auto pos = binary_search(vec, 0, vec.size()-1, lookup);
+
+		float lookup = static_cast<float>(5);
+		std::cout << "Looking for number " << lookup << std::endl;
+		auto pos = numbers::binary_search(vec, 0, vec.size()-1, 129);
 		std::cout << "Number " << lookup << " should be at position " << pos << std::endl;
 
 

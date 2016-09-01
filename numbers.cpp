@@ -26,6 +26,26 @@ namespace numbers
         return numbers;
     }
 
+	// Binary search as seen in CLRS, 3rd ed., p. 799
+	// Returns position of lookup number; if number is not found, returns "where it should be"
+	std::size_t binary_search(std::vector<float>& vec, std::size_t begin, std::size_t end, float lookup)
+	{
+		std::size_t low = begin;
+		std::size_t high = std::max(begin, end + 1);
+
+		while(low < high)
+		{
+			std::size_t mid = std::floor((low + high) / 2);
+			if(lookup <= vec[mid])
+				high = mid;
+			else
+				low = mid + 1;
+		}
+
+		return high;
+	}
+
+
 	void save_numbers(const std::vector<float>& number_vector, const std::string& filename)
 	{
 		std::ofstream file;
