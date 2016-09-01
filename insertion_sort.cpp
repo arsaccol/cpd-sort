@@ -1,7 +1,6 @@
 #include "insertion_sort.h"
+#include "numbers.h"
 #include <iostream>
-#include <functional>
-#include <cmath>
 
 namespace sort
 {
@@ -32,39 +31,19 @@ namespace sort
 	{
 		float current_key;
 
-		auto bin_search = [number_vector, &current_key] (std::size_t begin, std::size_t end) -> std::size_t
-		{
-			std::size_t low = begin; std::size_t high = std::max(begin, end + 1);
-
-			while(low < high)
-			{
-				std::size_t mid = std::floor((low + high) / 2);
-				if(current_key <= number_vector[mid])
-					high = mid;
-				else
-					low = mid + 1;
-			}
-
-			return high;
-		};
-
 		for(std::size_t unsorted_begin = 1; unsorted_begin < number_vector.size(); ++unsorted_begin)
 		{
 			current_key = number_vector[unsorted_begin];
-			std::size_t insertion_pos = bin_search(0, unsorted_begin -1);
-			std::cout << "Current insertion position of " << current_key << " is: " << insertion_pos << std::endl;
 
-			auto shift_the_greater_ones = [&number_vector, &insertion_pos, &unsorted_begin] () -> void
-			{
-				for(std::size_t i = unsorted_begin; i > insertion_pos; --i)
-				{
-					number_vector[i] = number_vector[i - 1];
+			// Do a binary search for the position to insert the current key in
+			auto insert_pos = numbers::binary_search(number_vector, 0, number_vector[unsorted_begin-1], current_key);
 
-				}
-			};
+			// This may or may not work...
 
-			shift_the_greater_ones();
-			number_vector[insertion_pos] = current_key;
+			std::cout << "Positon to insert " << current_key << " is " << insert_pos << std::endl;
+
+
+
 		}
 
 	}
