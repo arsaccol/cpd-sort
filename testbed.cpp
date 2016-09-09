@@ -7,7 +7,7 @@
 #include "numbers.h"
 #include "insertion_sort.h"
 #include "timer.h"
-
+#include "heapsort.h"
 
 namespace tests
 {
@@ -97,31 +97,22 @@ namespace tests
 
 int main(int argc, char** argv)
 {
-	std::size_t how_many_tests = 1000;
-	std::size_t nr_algos = 3;
-	std::string extension = ".csv";
+	float numArray[] = 
+	{ 512.f, 256.f, 128.f, 64.f, 32.f, 16.f, 8.f, 4.f, 2.f, 1.f };
 
+	float arraySize = 10;
 
-	/// Regular insertion sort: 			tables[0]
-	/// Binary search insertion sort: 		tables[1]
-	/// Quicksort:							tables[2]
-	std::vector<std::map<std::size_t, double>> tables(nr_algos);
-	//std::string filename = numbers::get_filename(how_many);
+	Heap h(numArray, arraySize);
 
-	//tests::sorting_test_single_length(how_many);
-
-
-
-	for(std::size_t i = 50; i <= how_many_tests; i += 10) 
+	for(std::size_t lookup = 0; lookup < 10; ++lookup)
 	{
-		tests::sorting_test_single_length(tables, i);
+		std::cout << "Parent of " << lookup << " is: " << h.parent(lookup) << std::endl;
+		std::cout << "Left child of " << lookup << " is: " << h.leftChild(lookup) << std::endl;
+		std::cout << "Right child of " << lookup << " is: " << h.rightChild(lookup) << std::endl;
+		std::cout << "Parent of left child of " << lookup << " is: " << h.parent(h.leftChild(lookup)) << std::endl;
+		std::cout << "Parent of right child of " << lookup << " is: " << h.parent(h.rightChild(lookup)) << std::endl;
+		std::cout << std::endl;
 	}
 
-
-	tests::save_map(tables[0], "insertion_sort" + extension);
-	tests::save_map(tables[1], "binary_search_insertion_sort" + extension);
-	tests::save_map(tables[2], "quicksort" + extension);
-
-	//numbers::save_numbers(vec, filename);
 	return 0;
 }
