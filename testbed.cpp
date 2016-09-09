@@ -97,7 +97,7 @@ namespace tests
 
 int main(int argc, char** argv)
 {
-	std::size_t how_many_tests = 10000;
+	std::size_t how_many_tests = 1000;
 	std::size_t nr_algos = 3;
 	std::string extension = ".csv";
 
