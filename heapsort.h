@@ -10,20 +10,13 @@ public:
 	Heap(float* numArray, std::size_t arraySize);
 
 	std::size_t parent(std::size_t childIndex) const
-	{
-		if(childIndex == 0)
-			return 0;
-		else
-			return (childIndex - 1) / 2;
-	}
+	{	return childIndex==0 ? 0 : (childIndex-1) / 2;	}
+
 	std::size_t	leftChild(std::size_t parentIndex) const
-	{
-		return parentIndex * 2 + 1;
-	}
+	{	return parentIndex * 2 + 1;	}
+
 	std::size_t rightChild(std::size_t parentIndex) const
-	{
-		return parentIndex * 2 + 2;
-	}
+	{	return parentIndex * 2 + 2;	}
 
 private:
 	float* _numArray;
