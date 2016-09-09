@@ -6,7 +6,7 @@ all: testbed
 debug:
 	$(CC) $(CFLAGS) -g testbed.cpp numbers.o insertion_sort.o heapsort.o timer.o -o tests.program
 
-testbed: numbers heap_sort timer
+testbed: numbers heap_sort insertion_sort timer
 	$(CC) $(CFLAGS) testbed.cpp numbers.o insertion_sort.o heapsort.o timer.o -o tests.program
 
 numbers:

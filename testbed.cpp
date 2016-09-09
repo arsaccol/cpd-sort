@@ -98,21 +98,23 @@ namespace tests
 int main(int argc, char** argv)
 {
 	float numArray[] = 
-	{ 512.f, 256.f, 128.f, 64.f, 32.f, 16.f, 8.f, 4.f, 2.f, 1.f };
+	{1.f, 2.f, 4.f, 8.f, 16.f, 32.f, 64.f, 128.f, 256.f, 512.f};
 
-	float arraySize = 10;
-
-	Heap h(numArray, arraySize);
-
-	for(std::size_t lookup = 0; lookup < 10; ++lookup)
+	std::cout << "Current arrangement of array: " << std::endl;
+	for(auto num : numArray)
 	{
-		std::cout << "Parent of " << lookup << " is: " << h.parent(lookup) << std::endl;
-		std::cout << "Left child of " << lookup << " is: " << h.leftChild(lookup) << std::endl;
-		std::cout << "Right child of " << lookup << " is: " << h.rightChild(lookup) << std::endl;
-		std::cout << "Parent of left child of " << lookup << " is: " << h.parent(h.leftChild(lookup)) << std::endl;
-		std::cout << "Parent of right child of " << lookup << " is: " << h.parent(h.rightChild(lookup)) << std::endl;
-		std::cout << std::endl;
+		std::cout << num << " ";
+	}
+	std::cout << std::endl;
+
+	Heap h(numArray, 10);
+	
+	std::cout << "Current arrangement of array: " << std::endl;
+	for(auto num : numArray)
+	{
+		std::cout << num << " ";
 	}
 
+	std::cout << std::endl;
 	return 0;
 }
