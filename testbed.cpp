@@ -97,23 +97,19 @@ namespace tests
 
 int main(int argc, char** argv)
 {
-	float numArray[] = 
-	{1.f, 2.f, 4.f, 8.f, 16.f, 32.f, 64.f, 128.f, 256.f, 512.f};
+	std::vector<float> numbers = 
+		{ -1, 16, 4, 10, 14, 7, 9, 3, 2, 8, 1 };
 
-	std::cout << "Current arrangement of array: " << std::endl;
-	for(auto num : numArray)
-	{
-		std::cout << num << " ";
-	}
+	std::cout << "Before maxHeapify" << std::endl;
+	for(std::size_t i = 0; i < numbers.size(); ++i)
+		std::cout << numbers[i] << " ";
 	std::cout << std::endl;
 
-	Heap h(numArray, 10);
+	MaxHeap heap(numbers);
+	heap.maxHeapify(2);
 	
-	std::cout << "Current arrangement of array: " << std::endl;
-	for(auto num : numArray)
-	{
-		std::cout << num << " ";
-	}
+	for(std::size_t i = 0; i < numbers.size(); ++i)
+		std::cout << numbers[i] << " ";
 
 	std::cout << std::endl;
 	return 0;

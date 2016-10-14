@@ -1,53 +1,49 @@
 #include "heapsort.h"
 #include <algorithm>
 #include <iostream>
-
-Heap::Heap(float* numArray, std::size_t arraySize)
-	:	_numArray(numArray), _arraySize(arraySize), _heapSize(arraySize)
+void MaxHeap::maxHeapify(std::size_t index)
 {
-	buildHeap();
-}
+	std::cout << "Heapifying at " << index << std::endl;
+	std::cout << "Array: ";
+	for(std::size_t i = 0; i < mNumbers.size(); ++i)
+		std::cout << mNumbers[i] << " ";
+	std::cout << std::endl;
 
-void Heap::buildHeap()
-{
-	std::cout << "Executing buildHeap()" << std::endl;
-	_heapSize = _arraySize;
-	for(std::size_t i = _arraySize / 2; i > 0; --i)
-		heapify(i);
-}
-
-void Heap::heapify(std::size_t index)
-{
-	std::cout << "Heapifying at index " << index << std::endl;
-	printArray();
 	std::size_t left = leftChild(index);
 	std::size_t right = rightChild(index);
-	std::size_t largest;
+	std::size_t largest = index;
 
-	if(left <= _heapSize && _numArray[left] > _numArray[index])
+	if(left <= heapSize && mNumbers[left] > mNumbers[index])
 		largest = left;
 	else
 		largest = index;
+	
+	if(right <= heapSize && mNumbers[right] > mNumbers[largest])
+			largest = right;
 
-	if(right <= _heapSize && _numArray[right] > _numArray[index])
-		largest = right;
+	std::cout << "Largest is at " << largest << std::endl;
+	std::cout << "Current is " << index << std::endl;
 
 	if(largest != index)
 	{
-		// Exchange largest and currently indexed 
-		float temp = _numArray[index];
-		_numArray[index] = _numArray[largest];
-		_numArray[largest] = temp;
-
-		heapify(largest);
+		std::swap(mNumbers[index], mNumbers[largest]);
+		maxHeapify(largest);
 	}
 }
 
-void Heap::printArray()
+void MaxHeap::buildMaxHeap()
 {
-	std::cout << "Array is currently: ";
-	for(std::size_t i = 0; i < _arraySize; ++i)
-		std::cout << _numArray[i] << " ";
+	heapSize = mNumbers.size() - 1;
 
-	std::cout << std::endl;
+	for(std::size_t i = (heapSize >> 1); i != 0; --i)
+	{
+		std::cout << "heapSize: " << heapSize << std::endl;
+		maxHeapify(i);
+	}
+}
+
+
+void printHeap(std::size_t initIndex = 0)
+{
+
 }
