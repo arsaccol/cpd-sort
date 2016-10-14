@@ -12,6 +12,7 @@ public:
 	MaxHeap(std::vector<float>& numbers)
 	:	mNumbers(numbers) 
 	{
+		buildMaxHeap();
 	}
 
 	std::size_t leftChild(std::size_t index)

@@ -106,7 +106,6 @@ int main(int argc, char** argv)
 	std::cout << std::endl;
 
 	MaxHeap heap(numbers);
-	heap.maxHeapify(2);
 	
 	for(std::size_t i = 0; i < numbers.size(); ++i)
 		std::cout << numbers[i] << " ";
