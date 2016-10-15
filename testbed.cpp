@@ -98,14 +98,14 @@ namespace tests
 int main(int argc, char** argv)
 {
 	std::vector<float> numbers = 
-		{ -1, 16, 4, 10, 14, 7, 9, 3, 2, 8, 1 };
+		{ -9999, 16, 4, 10, 14, 7, 9, 3, 2, 8, 1 };
 
-	std::cout << "Before maxHeapify" << std::endl;
+	std::cout << "Before heap_sort()" << std::endl;
 	for(std::size_t i = 0; i < numbers.size(); ++i)
 		std::cout << numbers[i] << " ";
 	std::cout << std::endl;
 
-	MaxHeap heap(numbers);
+	sort::heap_sort(numbers);
 	
 	for(std::size_t i = 0; i < numbers.size(); ++i)
 		std::cout << numbers[i] << " ";
