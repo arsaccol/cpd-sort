@@ -98,7 +98,7 @@ namespace tests
 int main(int argc, char** argv)
 {
 	std::vector<float> numbers = 
-		{ -9999, 16, 4, 10, 14, 7, 9, 3, 2, 8, 1 };
+		numbers::generate_floats(50, 0);
 
 	std::cout << "Before heap_sort()" << std::endl;
 	for(std::size_t i = 0; i < numbers.size(); ++i)

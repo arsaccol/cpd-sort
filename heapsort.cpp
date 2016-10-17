@@ -11,8 +11,6 @@ namespace sort
 
 	void MaxHeap::maxHeapify(std::size_t index)
 	{
-		for(std::size_t i = 0; i < mNumbers.size(); ++i)
-			std::cout << mNumbers[i] << " ";
 		std::cout << std::endl;
 
 		std::size_t left = leftChild(index);
