@@ -113,6 +113,7 @@ int main(int argc, char** argv)
 
 	sort::heap_sort(numbers);
 	
+	std::cout << "After heap_sort()" << std::endl;
 	for(std::size_t i = 0; i < numbers.size(); ++i)
 		std::cout << numbers[i] << " ";
 

@@ -11,8 +11,6 @@ namespace sort
 
 	void MaxHeap::maxHeapify(std::size_t index)
 	{
-		std::cout << std::endl;
-
 		std::size_t left = leftChild(index);
 		std::size_t right = rightChild(index);
 		std::size_t largest = index;
@@ -38,7 +36,6 @@ namespace sort
 
 		for(std::size_t i = (heapSize >> 1); i != 0; --i)
 		{
-			std::cout << "heapSize: " << heapSize << std::endl;
 			maxHeapify(i);
 		}
 	}
