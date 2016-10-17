@@ -74,10 +74,16 @@ namespace tests
 		}
 		maps[2][how_many] = elapsed_quicksort;
 
-
-
-
-
+		// Heapsort
+		std::vector<float> vec_heapsort = numbers::generate_floats(how_many, generation_seed);
+		std::cout << "Sorting an std::vector of " << how_many << " elements with heapsort..." << std::endl;
+		double elapsed_heapsort = tests::test_algorithm_time(vec, sort::heap_sort);
+		if(numbers::is_sorted(vec))
+		{
+			std::cout << "Heapsort successful!" << std::endl;
+			std::cout << "Sorting with heapsort sort took " << elapsed << " milliseconds" << std::endl;
+		}
+		maps[3][how_many] = elapsed_heapsort;
 	}
 
 	void save_map(std::map<std::size_t, double>& the_map, std::string filename)
