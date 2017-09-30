@@ -4,7 +4,7 @@ CFLAGS = -std=c++11
 all: testbed
 
 debug:
-	$(CC) $(CFLAGS) -g testbed.cpp numbers.o insertion_sort.o heapsort.o timer.o -o tests.program
+	$(CC) $(CFLAGS) -g testbed.cpp numbers.cpp insertion_sort.cpp heapsort.cpp timer.cpp -o tests.program
 
 testbed: numbers.o heap_sort.o insertion_sort.o timer.o
 	$(CC) $(CFLAGS) testbed.cpp numbers.o insertion_sort.o heapsort.o timer.o -o tests.program
