@@ -4,20 +4,23 @@ CFLAGS = -std=c++11
 all: testbed
 
 debug:
-	$(CC) $(CFLAGS) -g testbed.cpp numbers.o insertion_sort.o timer.o -o tests.program
+	$(CC) $(CFLAGS) -g testbed.cpp numbers.cpp insertion_sort.cpp heapsort.cpp timer.cpp -o tests.program
 
-testbed: numbers insertion_sort timer
-	$(CC) $(CFLAGS) testbed.cpp numbers.o insertion_sort.o timer.o -o tests.program
+testbed: numbers.o heap_sort.o insertion_sort.o timer.o
+	$(CC) $(CFLAGS) testbed.cpp numbers.o insertion_sort.o heapsort.o timer.o -o tests.program
 
-numbers:
-	$(CC) $(CFLAGS) numbers.cpp -c
+numbers.o: numbers.cpp
+	$(CC) $(CFLAGS) -c numbers.cpp 
 
-insertion_sort:
-	$(CC) $(CFLAGS) insertion_sort.cpp -c
+insertion_sort.o: insertion_sort.cpp
+	$(CC) $(CFLAGS) -c insertion_sort.cpp
+
+heap_sort.o: heapsort.cpp
+	$(CC) $(CFLAGS) -c heapsort.cpp
 
 
-timer:
-	$(CC) $(CFLAGS) timer.cpp -c
+timer.o: timer.cpp
+	$(CC) $(CFLAGS) -c timer.cpp
 
 clean:
 	rm -rf *.o *.program *.csv

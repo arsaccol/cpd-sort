@@ -7,7 +7,7 @@
 #include "numbers.h"
 #include "insertion_sort.h"
 #include "timer.h"
-
+#include "heapsort.h"
 
 namespace tests
 {
@@ -74,10 +74,16 @@ namespace tests
 		}
 		maps[2][how_many] = elapsed_quicksort;
 
-
-
-
-
+		// Heapsort
+		std::vector<float> vec_heapsort = numbers::generate_floats(how_many, generation_seed);
+		std::cout << "Sorting an std::vector of " << how_many << " elements with heapsort..." << std::endl;
+		double elapsed_heapsort = tests::test_algorithm_time(vec, sort::heap_sort);
+		if(numbers::is_sorted(vec))
+		{
+			std::cout << "Heapsort successful!" << std::endl;
+			std::cout << "Sorting with heapsort sort took " << elapsed << " milliseconds" << std::endl;
+		}
+		maps[3][how_many] = elapsed_heapsort;
 	}
 
 	void save_map(std::map<std::size_t, double>& the_map, std::string filename)
@@ -97,31 +103,20 @@ namespace tests
 
 int main(int argc, char** argv)
 {
-	std::size_t how_many_tests = 10000;
-	std::size_t nr_algos = 3;
-	std::string extension = ".csv";
+	std::vector<float> numbers = 
+		numbers::generate_floats(50, 0);
 
+	std::cout << "Before heap_sort()" << std::endl;
+	for(std::size_t i = 0; i < numbers.size(); ++i)
+		std::cout << numbers[i] << " ";
+	std::cout << std::endl;
 
-	/// Regular insertion sort: 			tables[0]
-	/// Binary search insertion sort: 		tables[1]
-	/// Quicksort:							tables[2]
-	std::vector<std::map<std::size_t, double>> tables(nr_algos);
-	//std::string filename = numbers::get_filename(how_many);
+	sort::heap_sort(numbers);
+	
+	std::cout << "After heap_sort()" << std::endl;
+	for(std::size_t i = 0; i < numbers.size(); ++i)
+		std::cout << numbers[i] << " ";
 
-	//tests::sorting_test_single_length(how_many);
-
-
-
-	for(std::size_t i = 50; i <= how_many_tests; i += 10) 
-	{
-		tests::sorting_test_single_length(tables, i);
-	}
-
-
-	tests::save_map(tables[0], "insertion_sort" + extension);
-	tests::save_map(tables[1], "binary_search_insertion_sort" + extension);
-	tests::save_map(tables[2], "quicksort" + extension);
-
-	//numbers::save_numbers(vec, filename);
+	std::cout << std::endl;
 	return 0;
 }
