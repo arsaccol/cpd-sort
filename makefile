@@ -1,29 +1,18 @@
 CC = g++
-CFLAGS = -std=c++11 
-
-all: testbed
-
-debug:
-	$(CC) $(CFLAGS) -g testbed.cpp numbers.cpp insertion_sort.cpp heapsort.cpp timer.cpp -o tests.program
-
-testbed: numbers.o heap_sort.o insertion_sort.o timer.o
-	$(CC) $(CFLAGS) testbed.cpp numbers.o insertion_sort.o heapsort.o timer.o -o tests.program
-
-numbers.o: numbers.cpp
-	$(CC) $(CFLAGS) -c numbers.cpp 
-
-insertion_sort.o: insertion_sort.cpp
-	$(CC) $(CFLAGS) -c insertion_sort.cpp
-
-heap_sort.o: heapsort.cpp
-	$(CC) $(CFLAGS) -c heapsort.cpp
+CFLAGS = -std=c++11 -Wextra
+LDFLAGS= 
+EXEC = sorting
+SOURCES = $(wildcard *.cpp)
+OBJECTS = $(SOURCES:.cpp=.o)
 
 
-timer.o: timer.cpp
-	$(CC) $(CFLAGS) -c timer.cpp
+$(EXEC): $(OBJECTS)
+	$(CC) $(OBJECTS) -o $(EXEC) $(LDFLAGS)
+
+
+
+%.o: %.cpp
+	$(CC) -c $(CFLAGS) $< -o $@
 
 clean:
-	rm -rf *.o *.program *.csv
-
-delete_numbers:
-	rm *.nr
+	rm -f $(EXEC) $(OBJECTS)
